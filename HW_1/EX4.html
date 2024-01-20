@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="JSEX4.js"></script>
+</head>
+<body>
+    <div id="ph">
+
+    </div>
+
+
+    <script>
+
+        const p1 = new point(1, 5);
+        const p2 = new point(2, 6);
+        const p3 = new point(4, 5);
+        const p4 = new point(6, 2);
+        const p5 = new point(7, 3);
+        const p6 = new point(2, 6);
+        const p7 = new point(15, 4);
+        const PointArr = [p1, p2, p3, p4, p5];
+        
+        console.log(p5.show()); //return (7,3)
+        console.log(p1.Equals(p2)); //return false
+        console.log(p2.Equals(p6)); //return true
+
+        let CheckPoint;
+        
+        function CheckPointInArr(x, y, arr) {
+            CheckPoint = new point(x, y);
+            for (var i = 0; i < arr.length; i++) {
+                if (CheckPoint.x == arr[i].x && CheckPoint.y == arr[i].y) {
+                    return true;
+                }
+
+            }
+            return false;
+
+        }
+        console.log(CheckPointInArr(7, 3, PointArr)); //return true
+        console.log(CheckPointInArr(14, 2, PointArr)); // return false
+
+        function CheckObjectInArr(p, arr) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].Equals(p)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        console.log(CheckObjectInArr(p6, PointArr)); //return true
+        console.log(CheckObjectInArr(p7, PointArr)); // return false
+        function Calc(arr) {
+            let sumWay = 0;
+            let sumX = 0;
+            let sumY = 0;
+            let distance = 0;
+            for (var i = 1; i < arr.length; i++) {
+                sumX = (arr[i].x - arr[i - 1].x)
+                sumY = (arr[i].y - arr[i - 1].y)
+                distance = Math.sqrt(sumX * sumX + sumY * sumY);
+                sumWay += distance;
+            }
+            return sumWay;
+        }
+        
+        function showAllPoint(arr) {
+            str = "";
+            for (var i = 0; i < arr.length; i++) {
+                str += arr[i].show() + "  ";
+            }
+            return str;
+        }
+        document.getElementById("ph").innerHTML = "<h1>the distance between the following points: </h1>" + showAllPoint(PointArr) + "</br></br>  is: " + Calc(PointArr);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="JSEX3.js"></script>
+    <link href="SSEX3.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>
+        Please fill in the following fields:
+    </h2>
+    <label>hour:</label>
+    <input type="text" id="hour" />
+    <br /> <br />
+    <label>minute:</label>
+    <input type="text" id="minute" />
+    <br /> <br />
+    <label>second:</label>
+    <input type="text" id="second" />
+    <br /> <br />
+    <label>country:</label>
+    <input type="text" id="country" />
+    <br /> <br />
+    <button onclick="AddToArr()">Finish</button>
+    <div id="ph"></div>
+    <script>
+        let MyClock;
+        let ClocksArr = [];
+        function AddToArr() {
+            let str = "";
+            MyHour = document.getElementById("hour").value;
+            MyMinute = document.getElementById("minute").value;
+            MySecond = document.getElementById("second").value;
+            MyCountry = document.getElementById("country").value;
+            if (MyHour >= 0 && MyHour <= 24 && MyMinute >= 0 && MyMinute <= 60 && MySecond >= 0 && MySecond <= 60) {
+                if (MyCountry.match("[a-zA-Z]+")) {
+                    MyClock = new Clock(MyHour, MyMinute, MySecond, MyCountry);
+                    inpurArr = document.getElementsByTagName('input');
+                    for (var i = 0; i < inpurArr.length; i++) {
+                        inpurArr[i].value = "";
+                    }
+                    ClocksArr.push(MyClock);
+                    if (ClocksArr.length == 5) {
+                        for (var i = 0; i < ClocksArr.length; i++) {
+                            str += `<div class="MyDiv">`;
+                            str += ClocksArr[i].country + " <br />";
+                            str += ClocksArr[i].Show() + "<br/>";
+                            str += ClocksArr[i].ConverToSecond() + "<br/>";
+                            str += "</div>";
+                        }
+                        document.getElementById("ph").innerHTML = str;
+                    }
+                }
+                else {
+                    alert("אנא הכנס שם תקין של מדינה");
+                    document.getElementById("country").value = "";
+                }
+            }
+            else {
+                alert("אנא הכנס זמנים תקינים");
+            }
+        }
+    </script>
+</body>
+</html>

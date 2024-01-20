@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="JSEX2.js"></script>
+    <link href="SSEX2.css" rel="stylesheet" />
+</head>
+<body >
+    <h1>
+        Please fill in the following fields:
+    </h1>
+    <label>duck name:</label>
+    <input type="text" id="name" />
+    <br /> <br />
+    <label>duck color:</label>
+    <input type="text" id="color" />
+    <br /> <br />
+    <label>duck age:</label>
+    <input type="text" id="age" />
+    <br /> <br />
+    <label>duck weight:</label>
+    <input type="text" id="weight" />
+    <br /> <br />
+    <label>duck picture:</label>
+    <input type="file" id="pic" accept="image/*" />
+    <br />
+    <button onclick="CreateDuck()" id="finishBtn" class="button">finish</button><br />
+    <div id="BtnDiv" class="NoShowDiv">
+        <button onclick="showdetail()"  class="button">Show</button>
+        <button onclick="quakFunc()"  class="button">Quak</button>
+    </div>
+    <div id="ph"></div>
+
+    <script>
+        let MyDuck;
+        function CreateDuck() {
+            MyName = document.getElementById("name").value;
+            MyColor = document.getElementById("color").value;
+            if (!MyName.match("[a-zA-Z]+")){
+                alert("please enter a valid name"); 
+                return;
+            }
+            if (!MyColor.match("[a-zA-Z]+")){
+                alert("please enter a valid color");
+                return;
+            }
+            MyAge = document.getElementById("age").value;
+            if (!(MyAge > 0)){
+                alert("please enter a valid age");
+                return;
+
+            }
+            MyWeight = document.getElementById("weight").value;
+            if (!(MyWeight > 0)) {
+                alert("please enter a valid weight");
+                return;
+            }
+            const fileInput = document.getElementById("pic");
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    MyPic = e.target.result;
+                    MyDuck = new Duck(MyName, MyColor, MyAge, MyWeight, MyPic);
+                    document.getElementById("BtnDiv").className = "ShowDiv";
+                    document.getElementById("finishBtn").disabled = true;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                alert('please select picture');
+            }
+            MyDuck = new Duck(MyName, MyColor, MyAge, MyWeight, MyPic);
+            document.getElementById("BtnDiv").className = "ShowDiv";
+            document.getElementById("finishBtn").disabled = true;
+        }
+        function showdetail() {
+            StrDuck = MyDuck.Show();
+            console.log(MyDuck);
+            document.getElementById("ph").innerHTML = StrDuck;
+        }
+        function quakFunc() {
+            strQuak = MyDuck.Quack();
+            document.getElementById("ph").innerHTML = strQuak;
+
+        }
+    </script>
+</body>
+</html>

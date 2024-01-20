@@ -1,0 +1,19 @@
+﻿
+
+
+.ShowDiv {
+    display: block;
+}
+
+.NoShowDiv {
+    display: none;
+}
+
+.DisabledBtn {
+}
+
+* {
+    font-family: Tahoma;
+    color: #d5c055;
+}
+    
